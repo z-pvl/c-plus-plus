@@ -1,0 +1,56 @@
+#include<iostream>
+#include<iomanip>
+
+using namespace std;
+
+void enterValues(int [], int);
+int getLargest(const int[], int);
+int getSmallest(const int[], int);
+
+int main()
+{
+	const int ARRAY = 10;
+	int value[ARRAY],
+		largest,
+		smallest;
+		
+	cout << "Please enter 10 numbers.\n" ;
+	enterValues(value, ARRAY);
+	
+	largest = getLargest(value, ARRAY);
+	cout << "The largest value is " << largest << endl;
+	
+	smallest = getSmallest(value, ARRAY);
+	cout << "The smallest value is " << smallest << endl;
+	
+	return 0;
+}
+
+void enterValues(int nums[], int array)
+{
+	int index;
+	for(index=0; index<array; index++)
+		cin >> nums[index];
+}
+int getLargest(const int input[], int array)
+{
+	int largest = 0;
+	largest = input[0];
+	for(int count=0; count<array; count++)
+	{
+		if (input[count]>largest)
+		largest = input[count];
+	}
+	return largest;
+}
+int getSmallest(const int input[], int array)
+{
+	int smallest = 0;
+	smallest = input[0];
+	for (int count=0; count<array; count++)
+	{
+		if (input[count]<smallest)
+		smallest = input[count];
+	}
+	return smallest;
+}
