@@ -1,0 +1,121 @@
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+// Function prototypes
+void getDataFromFile (string&, double[], int&);
+double getLowestNum (const double[], int);
+double getHighestNum (const double[], int);
+double getTotal (const double[], int);
+double getAverageNum (const double[], int);
+
+const int ARRAY_SIZE = 100; // Array size
+
+int main()
+{
+	double numbers[ARRAY_SIZE]; // array with 100 elements
+	int count = 0; // Variable that holds actual quantity of numbers in file
+	double lowest, highest, total, average; // variables for calculations 
+	string filename; 
+	
+	//to get data from file	
+    getDataFromFile(filename, numbers, count);
+    
+	// to get the lowest number	& display it
+	lowest = getLowestNum(numbers, count);
+	
+	// to get the highest number & display it
+	highest = getHighestNum(numbers, count);
+	
+	// to get total of numbers & display it
+	total = getTotal(numbers, count);
+	
+	// to get average of numbers & display it 
+	average = getAverageNum(numbers, count);
+
+	return 0;
+}
+
+//function to get data from file
+void getDataFromFile(string& file, double values[], int& count)
+{
+	ifstream inputFile;	
+	cout << "Enter the filename: ";
+	cin >> file;
+	inputFile.open(file.c_str());
+	
+	// To check if file opens
+	if(inputFile)
+	{
+		// to read the elements from file into an array & display them
+		while (count < ARRAY_SIZE && inputFile >> values[count])
+			count++;
+		
+		for (int index=0; index<count; index++)
+		cout << values[index] << " " ;
+		cout << endl << endl;		
+	}
+	else
+	{
+		cout << "Error opening the file.\n\n\n";
+	}
+	
+	// close the file
+	inputFile.close(); 
+}
+
+// function to find lowest number from file 
+double getLowestNum (const double value[], int size)
+{
+	double lowest = 0;
+	lowest = value[0];
+	
+	for (int index=1; index<size; index++)
+	{
+		if (value[index]<lowest)
+			lowest = value[index];
+	}
+	cout << "Lowest number here is " << lowest << endl;
+}
+
+// function to find highest number from file
+double getHighestNum (const double value[], int size)
+{
+	double highest = 0;
+	highest = value[0];
+	
+	for (int index=1; index<size; index++)
+	{
+		if (value[index]>highest)
+			highest = value[index];
+	}
+	cout << "Highest number here is " << highest << endl;
+}
+
+// function to find total of numbers from file
+double getTotal (const double value[], int size)
+{
+	double total = 0.0;
+	
+	for (int index=0; index<size; index++)
+		total += value[index];
+		
+	cout << "Total of these numbers is " << total << endl;
+}
+
+// function to find average of numbers from file
+double getAverageNum (const double value[], int size)
+{
+	double total = 0.0;
+	double average;
+	
+	for (int index=0; index<size; index++)
+		total += value[index];
+		
+	average = total / size;
+	cout << setprecision(2) << fixed;
+	cout << "Average of these numbers is " << average << endl;	
+}
