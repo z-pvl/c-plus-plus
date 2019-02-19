@@ -1,0 +1,166 @@
+//Zhangerim Negmatova
+// Sudoku game
+
+
+#include<iostream>
+using namespace std;
+
+
+	const int NUMCOLS = 9;
+	const int NUMROWS = 9;
+	
+bool dublicateNum(int[][NUMCOLS], int);
+bool outOfRange(int[][NUMCOLS], int);
+bool square(int[][NUMCOLS], int);
+
+int main()
+{
+
+	const int MIN = 1;
+	const int MAX = 9;
+	
+	int game[NUMROWS][NUMCOLS] = {{22,4,6,8,3,9,5,7,7},
+								  {5,7,8,6,4,1,9,3,2},
+								  {3,9,1,2,5,7,6,8,4},
+								  {8,1,3,9,2,5,4,7,6},
+								  {4,2,5,1,7,6,8,9,3},
+								  {7,6,9,4,8,3,2,5,1},
+								  {1,5,4,7,6,8,3,2,9},
+								  {6,8,7,3,9,2,1,4,5},
+								  {9,3,2,5,1,4,7,6,8}};
+	bool dublicate;
+	bool dublicate1;
+	bool range;
+	{
+	
+	for (int i=0; i<NUMROWS; i++)
+	{
+		for (int j=0; j<NUMCOLS; j++)
+		{
+			if (game[i][j] < MIN || game[i][j] > MAX) 
+	
+			range = true;
+		
+			for (int a=i+1; a<NUMROWS; a++)
+			{
+				if (game[i][j] == game[a][j])
+				dublicate = true; 
+			}
+	
+			for (int b=j+1; b<NUMCOLS; b++)
+			{
+				if (game[i][j] == game[i][b])
+				dublicate = true;	
+			}		
+		}
+	}
+				
+		if (dublicate)
+		cout << "Invalid Array with dublicate numbers.\n" ;
+		
+		else if (range)
+		cout << "Invalid array. Out of range. \n" ;
+		
+		else 
+		cout << "Valid Array!\n" ; 
+}
+		
+	{
+		for (int x=0; x<3; x++)
+				for (int y=0; y<3; y++)
+				{
+					for (int a=x+1; a<3; a++)
+					{
+						if (game[x][y] == game[a][y])
+						dublicate1 = true; 
+					}
+	
+					for (int b=y+1; b<3; b++)
+					{
+						if (game[x][y] == game[x][b])
+						dublicate1 = true;	
+					}		
+				}
+		
+		if (dublicate1)
+		cout << "Invalid Array with dublicate numbers.\n" ;
+		
+		else 
+		cout << "Valid Array!\n" ; 		
+				
+}
+	if (!dublicateNum(game, NUMROWS))
+	cout << "Valid Array!\n" ;
+	
+	else 
+	cout << "Invalid Array. Dublicate numbers.\n" ;
+	
+	if (outOfRange(game, NUMROWS))
+	cout << "Valid Array! In a range. \n" ;
+	
+	else 
+	cout << "Invalid array. Out of range. \n" ;
+
+	if (!square(game, 3))
+	cout << "Valid Square!\n" ;
+	
+	else 
+	cout << "Invalid Square. \n" ;
+		
+		return 0;
+}
+
+bool dublicateNum(int array[][NUMCOLS], int rows)
+{
+	for (int i=0; i<NUMROWS; i++)
+	{
+		for (int j=0; j<NUMCOLS; j++)
+		{
+			for (int a=i+1; a<NUMROWS; a++)
+			{
+				if (array[i][j] == array[a][j])
+				return true;
+			}
+	
+			for (int b=j+1; b<NUMCOLS; b++)
+			{
+				if (array[i][j] == array[i][b])
+				return true;	
+			}		
+		}
+	}
+	
+}
+
+bool outOfRange(int range[][NUMCOLS], int rows)
+{
+		for (int i=0; i<NUMROWS; i++)
+	{
+		for (int j=0; j<NUMCOLS; j++)
+		{
+			if (range[i][j] < 1 || range[i][j] > 9) 
+	
+			return true;
+	}
+}
+	
+}
+
+bool square(int square1[][NUMCOLS], int rows)
+{
+	for (int x=0; x<3; x++)
+				for (int y=0; y<3; y++)
+				{
+					for (int a=x+1; a<3; a++)
+					{
+						if (square1[x][y] == square1[a][y])
+						return true; 
+					}
+	
+					for (int b=y+1; b<3; b++)
+					{
+						if (square1[x][y] == square1[x][b])
+						return true;	
+					}		
+				}
+}
