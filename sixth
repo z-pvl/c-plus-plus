@@ -1,0 +1,129 @@
+// Zhangerim Negmatova
+// Password Verifier
+
+#include<iostream>
+#include<cstring>
+#include<cctype>
+
+
+using namespace std;
+
+bool checkSymbol( char [], int);
+bool checkLetter(char[], int);
+bool checkNum(char[], int);
+bool findSpaces(char[], int);
+bool beginning(char[]);
+bool checkFirst(char[]);
+
+int main()
+{
+	const int SIZE = 16;
+	
+	char password[SIZE];
+	
+	cout << "Please enter the password: " ;
+	
+	cin.getline(password,SIZE);
+	
+	if (strlen(password) < 8)
+		cout << "Invalid Password. It must contain 8 or more symbols." << endl;
+	
+	if (checkLetter(password,SIZE))
+		cout << "Invalid. It must contain minimum two letter symbols." << endl;
+		
+	if (checkNum(password, SIZE))
+		cout << "Invalid. It must contain at least one digit number." << endl;
+	
+	if (!checkSymbol(password,SIZE))
+		cout << "Invalid. It must contain one special character from this set: $ # ? * " << endl;
+		
+	if (findSpaces(password, SIZE))
+		cout << "Invalid. It cannot contain spaces. " << endl;
+		
+	if (beginning(password))
+		cout << "Invalid. It must not begin with a dollar sign [$] or an asterisk [*]. " << endl;
+	
+	if (checkFirst(password))
+		cout << "Invalid. The first 2 characters of the password must not be the same character. " << endl;
+	
+	else
+		cout << "Valid password!" << endl;
+			
+			
+	return 0;
+}
+
+bool checkSymbol( char pass[], int size)
+{
+	for (int i=1; i<size; i++)
+	{
+		if (pass[i] == '$')
+			return true;
+		if (pass[i] == '#')
+			return true;
+		if (pass[i] == '?')
+			return true;
+		if (pass[i] == '*')
+			return true;	
+	}
+
+	return false;
+}
+
+bool checkNum(char pass[], int size)
+{
+	for (int i=0;i<size;i++)
+	{
+		if(!isdigit(pass[i]))
+		return false;
+	}
+	return true;
+}
+
+bool checkLetter(char pass[], int size)
+{
+	int count = 0; 
+	for (int i=0; i<size; i++)
+	{
+		char l = pass[i];
+		if (isalpha(l))
+		   count++;
+	}
+	if 	(count > 2)
+		return false;
+	else
+		return true;	
+}
+
+bool findSpaces(char pass[], int size)
+{
+	for (int i=0;i<size;i++)
+	{
+		char x = pass[i];
+		if(!isspace(x))
+			return false;
+	}
+	return true;
+}
+
+bool beginning(char pass[])
+{
+	{
+	if (pass[0] == '$')
+		return true;
+	if (pass[0] == '*')	
+		return true;
+	}
+	return false;
+}
+
+bool checkFirst(char pass[])
+{
+	if (pass[0] != pass[1])
+	 return false;
+	
+	else 
+	return true; 
+	 
+	 
+}
